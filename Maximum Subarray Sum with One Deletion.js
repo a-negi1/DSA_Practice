@@ -1,18 +1,20 @@
-var maximumSum = function(a) {
-    let n = a.length;
-    let noDel = a[0];
-    let oneDel = -Infinity;
-    let res = a[0];
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var maximumSum = function(arr) {
+    let nodelete =arr[0];
+    let onedelete =0
 
-    for (let i = 1; i < n; i++) {
-        let prevNoDel = noDel;
+    let res=arr[0] 
 
-        noDel = Math.max(a[i], noDel + a[i]);
+    for(let i = 1;i<arr.length;i++){
+    let prevnodelete = nodelete 
+    
+    
+    nodelete = Math.max(nodelete+arr[i],arr[i]);
+    onedelete = Math.max(prevnodelete,onedelete+arr[i])
 
-        oneDel = Math.max(prevNoDel, oneDel + a[i]);
-
-        res = Math.max(res, Math.max(noDel, oneDel));
-    }
-
+    res = Math.max(res,nodelete,onedelete)}
     return res;
 };
