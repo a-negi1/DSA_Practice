@@ -1,0 +1,42 @@
+class Pair{
+    String first;
+    int second;
+
+    Pair(String a,int b){
+        this.first = a;
+        this.second = b;
+    }
+}
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap <String,Integer> h = new HashMap<>();
+
+        for(int i=0;i<words.length;i++){
+            String c = words[i];
+
+            h.put(c,h.getOrDefault(c,0)+1);
+        }
+
+        PriorityQueue<Pair> p = new PriorityQueue<>((a,b) ->{if(a.second == b.second){
+            return b.first.compareTo(a.first);}
+             return a.second - b.second;
+             });
+        
+        for(Map.Entry<String,Integer>m :h.entrySet()){
+
+            p.add(new Pair(m.getKey(),m.getValue()));
+
+            if(p.size()>k){
+                p.poll();
+            }
+        }
+
+        ArrayList <String> a = new ArrayList<>();
+
+        for(int i=0;i<k;i++){
+            a.add(0,p.poll().first);
+        }
+        return a;
+    }
+
+}
