@@ -23,7 +23,7 @@ class Solution {
                 if(arr.get(idx).first>w){
                     break;
                 }
-                pq.add(arr.get(idx));
+                pq.add(new Pair(arr.get(idx).first,arr.get(idx).second));
                 idx++;
             }
 
