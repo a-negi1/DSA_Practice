@@ -14,28 +14,30 @@
  * }
  */
 class Solution {
+        TreeNode prev = null;
+        boolean ans =true; 
     public boolean isValidBST(TreeNode root) {
-        ArrayList <Integer> res = new ArrayList<>();
-        solve(root,res);
-
-        for(int i=0;i<res.size()-1;i++){
-            if(res.get(i)>= res.get(i+1)){
-                return false;
-            }
-        }
-        return true;
+       solve(root);
+        return ans;
     } 
 
-    void solve(TreeNode root,List <Integer>res){
-        if(root== null){
+    void solve(TreeNode root){
+        if(root == null){
             return;
         }
-        
-        
-        solve(root.left,res);
-        res.add(root.val);
-        solve(root.right,res);
+        solve(root.left);
 
-       
+        if(prev == null){
+            prev = root ;
+        }
+        else{
+            if(prev.val>=root.val){
+                ans = false;
+                
+            }
+            prev = root;
+        }
+        solve(root.right);
     }
 }
+
