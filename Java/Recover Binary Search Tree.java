@@ -14,54 +14,59 @@
  * }
  */
 class Solution {
-    List <Integer> res = new ArrayList<>();
+    TreeNode p1first = null;
+    TreeNode p1second = null;
+    TreeNode p2first = null;
+    TreeNode p2second = null;
+    int wrong = 0;
+    TreeNode prev = null;
     public void recoverTree(TreeNode root) {
         solve(root);
-        int wrong=0;
-        int wrong1first=0,wrong1second=0,wrong2first=0,wrong2second=0;
-
-        for(int i=0;i<res.size()-1;i++){
-            if(res.get(i)>res.get(i+1)){
-                if(wrong == 0){
-                    wrong1first=res.get(i);
-                    wrong1second=res.get(i+1);
-                    wrong++;
-                }
-
-                else{
-                    wrong2first=res.get(i);
-                    wrong2second=res.get(i+1);
-                    wrong++;
-
-            }
-          }
+        int val1 =0 ;
+        int val2 =0;
+        if(wrong == 1){
+            val1 = p1first.val;
+            val2 = p1second.val; 
         }
-            int val1 = 0, val2 = 0;
-            if(wrong == 1){
-                val1 = wrong1first;
-                val2 = wrong1second;
-                
-            }
-            else{
-                val1 = wrong1first;
-                val2 = wrong2second;
-                
-            }
-            
-            
-            swap(root,val1,val2);
+        else{
+            val1 = p1first.val;
+            val2 = p2second.val;
         }
-    
+
+        swap(root,val1,val2);
+    }
 
     void solve(TreeNode root){
         if(root == null){
-            return ;
+            return;
         }
+        
 
         solve(root.left);
-        res.add(root.val);
+        if(prev == null){
+            prev = root;
+        }
+        else{
+            if(root.val < prev.val){
+                if(wrong == 0){
+                    p1first = prev;
+                p1second = root;
+                wrong++;
+                }
+                
+            
+            else{
+                p2first = prev;
+                p2second = root;
+                wrong++;
+            }
+            
+          }
+        }
+        prev = root;
         solve(root.right);
     }
+
 
     void swap(TreeNode root,int val1,int val2){
         if(root==null){
