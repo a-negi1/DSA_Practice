@@ -18,7 +18,7 @@ class Solution {
     }
 }
 
-//tabulation
+//memoization
 class Solution {
     public int uniquePaths(int m, int n) {
         int dp[][] = new int[m+1][n+1];
@@ -44,3 +44,4 @@ class Solution {
         return dp[i][j]=solve(i,j+1,m,n,dp) + solve(i+1,j,m,n,dp);
     }
 }
+
