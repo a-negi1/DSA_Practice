@@ -82,3 +82,30 @@ class Solution {
 }
 }
 
+// tabulation
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int k= 2;
+        int dp[][] = new int[n+1][k+1];
+
+        dp[n][k] = 0;
+
+        for(int i=n-1;i>=0;i--){
+            int buy = dp[i+1][1] - prices[i];
+            int skipbuy = dp[i+1][2];
+
+            dp[i][2] = Math.max(buy,skipbuy);
+
+            int sell = dp[i+1][2] + prices[i];
+            int skipsell = dp[i+1][1];
+            dp[i][1] = Math.max(sell,skipsell);
+        }
+        return dp[0][2];
+    }
+
+       
+}
+
+
