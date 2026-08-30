@@ -67,3 +67,36 @@ class Solution {
 
     }
 }
+
+//tabulation
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int k = 4;
+
+        int dp [][][]= new int[n+1][k+1][2];
+
+        
+        
+        for(int i=n-1;i>=0;i--){
+            for(int trans=1;trans<=k;trans++){
+                int buy = dp[i+1][trans-1][0] - prices[i];
+                int notbuy = dp[i+1][trans][1];
+            
+
+                dp[i][trans][1] = Math.max(buy,notbuy);
+
+                int sell = dp[i+1][trans-1][1]+prices[i];
+                int notsell = dp[i+1][trans][0];
+
+            dp[i][trans][0] = Math.max(sell,notsell);
+            }
+            
+        }
+        
+        return dp[0][k][1];
+    }
+
+   
+}
