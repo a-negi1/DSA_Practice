@@ -75,3 +75,41 @@ class Solution {
 
 }
 
+//tabulation
+
+class Solution {
+    public int minCost(int n, int[] cuts) {
+        int len=cuts.length;
+        ArrayList <Integer> a  = new ArrayList<>();
+
+        
+        a.add(0);
+        for(int i=0;i<len;i++){
+            a.add(cuts[i]);
+        }
+        
+        a.add(n);
+        Collections.sort(a);
+
+        int[][] dp = new int[a.size()][a.size()];
+        
+        for(int i=len;i>=1;i-- ){
+            for(int j=i;j<=len;j++ ){
+
+                int min=Integer.MAX_VALUE;
+
+                for(int k=i;k<=j;k++){
+                    int curr = a.get(j+1)  - a.get(i-1) + dp[i][k-1] + dp[k+1][j] ;
+                    min = Math.min(curr,min);
+            
+                }
+
+             dp[i][j]= min;
+            }
+        }  
+        return dp[1][len];
+
+    }
+
+}
+
